@@ -1,15 +1,16 @@
 const express = require('express');
 const path = require('path');
 const crypto = require('crypto');
+const fs = require('fs');
 
 const app = express();
 const PORT = process.env.PORT || 3000;
 
 // Middleware
 app.use(express.json());
-app.use(express.static(path.join(__dirname, 'public')));
+app.use(express.static(__dirname));
 
-// Временное хранилище данных (в реальном приложении используйте базу данных)
+// Временное хранилище данных
 let users = {};
 let applications = {};
 let licenseKeys = {};
@@ -30,6 +31,23 @@ function generateLicenseKey(prefix = 'ECL') {
     return `${prefix}-${segments.join('-')}`;
 }
 
+// Роуты для страниц
+app.get('/', (req, res) => {
+    res.sendFile(path.join(__dirname, 'index.html'));
+});
+
+app.get('/dashboard', (req, res) => {
+    res.sendFile(path.join(__dirname, 'dashboard.html'));
+});
+
+app.get('/apps', (req, res) => {
+    res.sendFile(path.join(__dirname, 'apps.html'));
+});
+
+app.get('/keys', (req, res) => {
+    res.sendFile(path.join(__dirname, 'keys.html'));
+});
+
 // API Routes
 
 // Аутентификация
@@ -48,7 +66,7 @@ app.post('/api/auth/register', (req, res) => {
         id: userId,
         username,
         email,
-        password, // В реальном приложении хэшируйте пароль!
+        password,
         createdAt: new Date().toISOString()
     };
     
@@ -218,7 +236,7 @@ app.delete('/api/keys/:key', (req, res) => {
     res.json({ success: true, message: 'Ключ удален' });
 });
 
-// Валидация ключа (для использования в приложениях)
+// Валидация ключа
 app.post('/api/validate', (req, res) => {
     const { key, hwid, appSecret } = req.body;
     
@@ -290,21 +308,26 @@ app.get('/api/stats/:userId', (req, res) => {
     const stats = {
         totalSales: userKeys.length,
         activeLicenses: userKeys.filter(key => key.status === 'active').length,
-        totalRevenue: userKeys.length * 29.99, // Примерная стоимость
+        totalRevenue: userKeys.length * 29.99,
         conversionRate: 86.5,
         activeUsers: userKeys.filter(key => key.hwid).length,
-        onlineUsers: Math.floor(Math.random() * 1000) + 7000, // Примерные данные
+        onlineUsers: Math.floor(Math.random() * 1000) + 7000,
         healthScore: 90
     };
     
     res.json({ success: true, stats });
 });
 
-// Обслуживание статических файлов
+// Обслуживание статических файлов (CSS, JS)
+app.use('/style.css', express.static(path.join(__dirname, 'style.css')));
+app.use('/script.js', express.static(path.join(__dirname, 'script.js')));
+
+// Fallback для всех остальных маршрутов
 app.get('*', (req, res) => {
-    res.sendFile(path.join(__dirname, 'public', 'index.html'));
+    res.sendFile(path.join(__dirname, 'index.html'));
 });
 
 app.listen(PORT, '0.0.0.0', () => {
     console.log(`Сервер Eclipse запущен на порту ${PORT}`);
+    console.log(`Доступен по адресу: http://localhost:${PORT}`);
 });
