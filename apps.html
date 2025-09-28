@@ -1,0 +1,183 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Приложения - Eclipse</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Eclipse</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="dashboard.html" class="nav-link">Панель управления</a>
+                <a href="apps.html" class="nav-link active">Приложения</a>
+                <a href="keys.html" class="nav-link">Ключи</a>
+                <a href="#" class="nav-link">Документация</a>
+            </div>
+            <div class="nav-actions">
+                <div class="user-menu">
+                    <span class="user-name">Admin</span>
+                    <div class="user-avatar">A</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-menu">
+                <a href="dashboard.html" class="sidebar-item">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Обзор</span>
+                </a>
+                <a href="apps.html" class="sidebar-item active">
+                    <span class="sidebar-icon">📱</span>
+                    <span>Приложения</span>
+                </a>
+                <a href="keys.html" class="sidebar-item">
+                    <span class="sidebar-icon">🔑</span>
+                    <span>Ключи</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">👥</span>
+                    <span>Пользователи</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">💰</span>
+                    <span>Финансы</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span>Настройки</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="content-header">
+                <h1>Мои приложения</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" id="addAppBtn">Добавить приложение</button>
+                </div>
+            </div>
+
+            <div class="apps-grid">
+                <div class="app-card">
+                    <div class="app-header">
+                        <div class="app-icon">📱</div>
+                        <div class="app-info">
+                            <h3>MyApp C++</h3>
+                            <span class="app-status active">Активно</span>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="app-stat">
+                            <span class="stat-label">Пользователи</span>
+                            <span class="stat-value">12,485</span>
+                        </div>
+                        <div class="app-stat">
+                            <span class="stat-label">Ключи</span>
+                            <span class="stat-value">2,347</span>
+                        </div>
+                    </div>
+                    <div class="app-actions">
+                        <button class="btn-secondary">Управление</button>
+                        <button class="btn-primary">Ключи</button>
+                    </div>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-header">
+                        <div class="app-icon">🐍</div>
+                        <div class="app-info">
+                            <h3>Python Tool</h3>
+                            <span class="app-status active">Активно</span>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="app-stat">
+                            <span class="stat-label">Пользователи</span>
+                            <span class="stat-value">8,742</span>
+                        </div>
+                        <div class="app-stat">
+                            <span class="stat-label">Ключи</span>
+                            <span class="stat-value">1,583</span>
+                        </div>
+                    </div>
+                    <div class="app-actions">
+                        <button class="btn-secondary">Управление</button>
+                        <button class="btn-primary">Ключи</button>
+                    </div>
+                </div>
+
+                <div class="app-card">
+                    <div class="app-header">
+                        <div class="app-icon">☕</div>
+                        <div class="app-info">
+                            <h3>Java Application</h3>
+                            <span class="app-status paused">Приостановлено</span>
+                        </div>
+                    </div>
+                    <div class="app-stats">
+                        <div class="app-stat">
+                            <span class="stat-label">Пользователи</span>
+                            <span class="stat-value">5,231</span>
+                        </div>
+                        <div class="app-stat">
+                            <span class="stat-label">Ключи</span>
+                            <span class="stat-value">892</span>
+                        </div>
+                    </div>
+                    <div class="app-actions">
+                        <button class="btn-secondary">Управление</button>
+                        <button class="btn-primary">Ключи</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно добавления приложения -->
+    <div id="addAppModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Добавить приложение</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="addAppForm">
+                    <div class="form-group">
+                        <label for="appName">Название приложения</label>
+                        <input type="text" id="appName" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appVersion">Версия</label>
+                        <input type="text" id="appVersion" value="1.0" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="appLanguage">Язык программирования</label>
+                        <select id="appLanguage" required>
+                            <option value="cpp">C++</option>
+                            <option value="python">Python</option>
+                            <option value="java">Java</option>
+                            <option value="other">Другой</option>
+                        </select>
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelAppBtn">Отмена</button>
+                        <button type="submit" class="btn-primary">Создать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>apps.html
