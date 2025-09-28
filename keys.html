@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ключи - Eclipse</title>
+    <link rel="stylesheet" href="style.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+</head>
+<body class="dashboard">
+    <nav class="navbar">
+        <div class="nav-container">
+            <div class="nav-logo">
+                <h2>Eclipse</h2>
+            </div>
+            <div class="nav-menu">
+                <a href="index.html" class="nav-link">Главная</a>
+                <a href="dashboard.html" class="nav-link">Панель управления</a>
+                <a href="apps.html" class="nav-link">Приложения</a>
+                <a href="keys.html" class="nav-link active">Ключи</a>
+                <a href="#" class="nav-link">Документация</a>
+            </div>
+            <div class="nav-actions">
+                <div class="user-menu">
+                    <span class="user-name">Admin</span>
+                    <div class="user-avatar">A</div>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <div class="dashboard-container">
+        <aside class="sidebar">
+            <div class="sidebar-menu">
+                <a href="dashboard.html" class="sidebar-item">
+                    <span class="sidebar-icon">📊</span>
+                    <span>Обзор</span>
+                </a>
+                <a href="apps.html" class="sidebar-item">
+                    <span class="sidebar-icon">📱</span>
+                    <span>Приложения</span>
+                </a>
+                <a href="keys.html" class="sidebar-item active">
+                    <span class="sidebar-icon">🔑</span>
+                    <span>Ключи</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">👥</span>
+                    <span>Пользователи</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">💰</span>
+                    <span>Финансы</span>
+                </a>
+                <a href="#" class="sidebar-item">
+                    <span class="sidebar-icon">⚙️</span>
+                    <span>Настройки</span>
+                </a>
+            </div>
+        </aside>
+
+        <main class="dashboard-content">
+            <div class="content-header">
+                <h1>Управление ключами</h1>
+                <div class="header-actions">
+                    <button class="btn-primary" id="generateKeyBtn">Сгенерировать ключи</button>
+                </div>
+            </div>
+
+            <div class="keys-controls">
+                <div class="search-box">
+                    <input type="text" placeholder="Поиск ключей...">
+                    <button class="search-btn">🔍</button>
+                </div>
+                <div class="filter-controls">
+                    <select>
+                        <option>Все приложения</option>
+                        <option>MyApp C++</option>
+                        <option>Python Tool</option>
+                        <option>Java Application</option>
+                    </select>
+                    <select>
+                        <option>Все статусы</option>
+                        <option>Активные</option>
+                        <option>Использованные</option>
+                        <option>Заблокированные</option>
+                    </select>
+                </div>
+            </div>
+
+            <div class="keys-table-container">
+                <table class="keys-table">
+                    <thead>
+                        <tr>
+                            <th>Ключ</th>
+                            <th>Приложение</th>
+                            <th>Статус</th>
+                            <th>Создан</th>
+                            <th>Истекает</th>
+                            <th>Действия</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td class="key-value">ECL-7X9P-2R8Q-1T6W</td>
+                            <td>MyApp C++</td>
+                            <td><span class="status-badge active">Активный</span></td>
+                            <td>28.09.2025</td>
+                            <td>28.10.2025</td>
+                            <td>
+                                <button class="btn-action">Копировать</button>
+                                <button class="btn-action danger">Удалить</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="key-value">ECL-5Y3M-9K2J-4H7G</td>
+                            <td>Python Tool</td>
+                            <td><span class="status-badge used">Использован</span></td>
+                            <td>25.09.2025</td>
+                            <td>25.10.2025</td>
+                            <td>
+                                <button class="btn-action">Копировать</button>
+                                <button class="btn-action danger">Удалить</button>
+                            </td>
+                        </tr>
+                        <tr>
+                            <td class="key-value">ECL-8N1B-6V5C-3X2Z</td>
+                            <td>Java Application</td>
+                            <td><span class="status-badge active">Активный</span></td>
+                            <td>22.09.2025</td>
+                            <td>22.12.2025</td>
+                            <td>
+                                <button class="btn-action">Копировать</button>
+                                <button class="btn-action danger">Удалить</button>
+                            </td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+        </main>
+    </div>
+
+    <!-- Модальное окно генерации ключей -->
+    <div id="generateKeyModal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h2>Сгенерировать ключи</h2>
+                <span class="close">&times;</span>
+            </div>
+            <div class="modal-body">
+                <form id="generateKeyForm">
+                    <div class="form-group">
+                        <label for="keyApp">Приложение</label>
+                        <select id="keyApp" required>
+                            <option value="">Выберите приложение</option>
+                            <option value="1">MyApp C++</option>
+                            <option value="2">Python Tool</option>
+                            <option value="3">Java Application</option>
+                        </select>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyCount">Количество ключей</label>
+                        <input type="number" id="keyCount" min="1" max="1000" value="1" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyExpiry">Срок действия (дней)</label>
+                        <input type="number" id="keyExpiry" min="1" value="30" required>
+                    </div>
+                    <div class="form-group">
+                        <label for="keyPrefix">Префикс ключа</label>
+                        <input type="text" id="keyPrefix" value="ECL" maxlength="5">
+                    </div>
+                    <div class="form-actions">
+                        <button type="button" class="btn-secondary" id="cancelKeyBtn">Отмена</button>
+                        <button type="submit" class="btn-primary">Сгенерировать</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="script.js"></script>
+</body>
+</html>
